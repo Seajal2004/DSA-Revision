@@ -1,0 +1,39 @@
+//Tortoise and Hare (Slow and Fast pointer)
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast!= NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+};
+
+
+//Iterative
+
+Node* findMiddle(Node* head) {
+    // Count the number of nodes
+    Node* temp = head;
+    int cnt = 0;
+    while (temp != NULL) {
+        cnt++;
+        temp = temp->next;
+    }
+
+    // Find the middle node index
+    int middleNode = cnt / 2;
+
+    // Traverse again to the middle node
+    Node* temp1 = head;
+    while (middleNode > 0) {
+        temp1 = temp1->next;
+        middleNode--;
+    }
+
+    return temp1;
+}
