@@ -1,4 +1,4 @@
-//Brute:
+//Iterative:
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
@@ -18,3 +18,27 @@ public:
         
     }
 };
+
+//Recursive
+Node *reverseLinkedList(Node *head) {
+
+  // Write your code here
+
+    if(head == NULL || head->next == NULL){
+
+        return  head;
+
+    }
+
+    Node* newhead = reverseLinkedList(head->next);
+
+    Node* front = head->next;
+
+    front->next = head;
+
+    head->next = NULL;
+
+    return newhead;
+
+}
+
