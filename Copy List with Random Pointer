@@ -1,0 +1,27 @@
+// Copy List with Random Pointer
+Node* copyRandomList(Node* head) {
+        if (!head) return NULL;
+
+        // Step 1: Create a mapping from original nodes to their copies
+        unordered_map<Node*, Node*> mpp;
+        Node* temp = head;
+
+        // First pass: Create all the new nodes and map them
+        while (temp != NULL) {
+            Node* newNode = new Node(temp->val);
+            mpp[temp] = newNode;
+            temp = temp->next;
+        }
+
+        // Step 2: Assign next and random pointers to the copied nodes
+        temp = head;
+        while (temp != NULL) {
+            Node* copyNode = mpp[temp];
+            copyNode->next = mpp[temp->next];     // may be NULL
+            copyNode->random = mpp[temp->random]; // may be NULL
+            temp = temp->next;
+        }
+
+        // Step 3: Return the head of the copied list
+        return mpp[head];
+    }
