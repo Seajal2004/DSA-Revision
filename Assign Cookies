@@ -1,0 +1,18 @@
+//Assign Cookies
+
+int assignCookie(vector<int> &greed, vector<int> &size) {
+	// Write your code here.
+	int n = greed.size();
+	int m = size.size();
+	int l = 0;
+	int r = 0;
+	sort(greed.begin(), greed.end());
+	sort(size.begin(), size.end());
+	while(l<n && r<m){
+		if(greed[l]<=size[r]){
+			l = l+1;
+		}
+		r = r+1;
+	}
+	return l;
+}
