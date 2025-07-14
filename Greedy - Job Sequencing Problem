@@ -1,0 +1,44 @@
+//Job Sequencing Problem
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// Comparator function to sort jobs by descending profit
+bool comp(const vector<int> &a, const vector<int> &b) {
+    return a[2] > b[2];
+}
+
+vector<int> jobScheduling(vector<vector<int>> &jobs) {
+    // Step 1: Sort using comparator
+    sort(jobs.begin(), jobs.end(), comp);
+
+    // Step 2: Find max deadline
+    int maxDeadline = 0;
+    for (int i = 0; i < jobs.size(); ++i) {
+        maxDeadline = max(maxDeadline, jobs[i][1]);
+    }
+
+    // Step 3: Create slots and initialize to -1
+    vector<int> slots(maxDeadline + 1, -1);
+
+    int count = 0, totalProfit = 0;
+
+    // Step 4: Try to place each job
+    for (int i = 0; i < jobs.size(); ++i) {
+        int deadline = jobs[i][1];
+        int profit = jobs[i][2];
+        int id = jobs[i][0];
+
+        // Find a free slot before or on deadline
+        for (int j = deadline; j > 0; --j) {
+            if (slots[j] == -1) {
+                slots[j] = id;
+                count++;
+                totalProfit += profit;
+                break;
+            }
+        }
+    }
+
+    return {count, totalProfit};
+}
