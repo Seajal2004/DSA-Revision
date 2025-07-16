@@ -1,0 +1,16 @@
+//  Find Minimum Number Of Coins
+
+vector<int> MinimumCoins(int n)
+{
+    vector<int> denominations = {1000, 500, 100, 50, 20, 10, 5, 2, 1};
+    vector<int> result;
+
+    for (int coin : denominations) {
+        while (n >= coin) {
+            n -= coin;
+            result.push_back(coin);
+        }
+    }
+
+    return result;
+}
