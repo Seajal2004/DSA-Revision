@@ -1,0 +1,45 @@
+#include <stack>
+using namespace std;
+
+class Queue {
+    stack<int> s1, s2;
+
+public:
+    Queue() {
+        // Constructor - nothing to initialize specifically
+    }
+
+    void enQueue(int val) {
+        s1.push(val);
+    }
+
+    int deQueue() {
+        if (s2.empty()) {
+            // Transfer all from s1 to s2
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+        if (s2.empty()) return -1; // queue is empty
+        int front = s2.top();
+        s2.pop();
+        return front;
+    }
+
+    int peek() {
+        if (s2.empty()) {
+            // Transfer if needed
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+        if (s2.empty()) return -1;
+        return s2.top();
+    }
+
+    bool isEmpty() {
+        return s1.empty() && s2.empty();
+    }
+};
