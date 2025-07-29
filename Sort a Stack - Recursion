@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// Helper function to insert in sorted order (descending)
+void insert(stack<int>& s, int temp) {
+    if (s.empty() || s.top() <= temp) {
+        s.push(temp);
+        return;
+    }
+
+    int val = s.top();
+    s.pop();
+    insert(s, temp);
+    s.push(val);
+}
+
+// Recursive sort function that returns stack
+stack<int> sortStack(stack<int> s) {
+    if (s.size() <= 1)
+        return s;
+
+    int temp = s.top();
+    s.pop();
+    s = sortStack(s);     // Get sorted stack
+    insert(s, temp);      // Insert current element
+    return s;
+}
