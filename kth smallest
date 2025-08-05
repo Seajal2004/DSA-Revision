@@ -1,0 +1,13 @@
+class Solution {
+  public:
+    int kthSmallest(vector<int> &arr, int k) {
+        priority_queue<int> pq; // Max-Heap
+        for(int& num : arr){
+            pq.push(num);
+            if(pq.size() > k){
+                pq.pop(); // remove largest of the k+1 elements
+            }
+        }
+        return pq.top(); // kth smallest element
+    }
+};
