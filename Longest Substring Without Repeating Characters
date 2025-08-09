@@ -1,0 +1,17 @@
+#include <bits/stdc++.h> 
+int uniqueSubstrings(string input)
+{
+    vector<int> lastIndex(256, -1); // store last seen index for all characters
+    int maxLen = 0, start = 0;
+
+    for (int end = 0; end < input.size(); end++) {
+        // If we have seen this character and it's inside the current window
+        if (lastIndex[input[end]] >= start) {
+            start = lastIndex[input[end]] + 1; // move start right after duplicate
+        }
+        lastIndex[input[end]] = end; // update last seen index
+        maxLen = max(maxLen, end - start + 1); // update answer
+    }
+
+    return maxLen;
+}
